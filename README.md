@@ -23,6 +23,8 @@ Profile path can be found in Firefox by going to `about:profiles` and looking fo
    - Set `remove_if_duplicate` to `true` if you want to remove existing bookmarks with same name in the root folder before importing. Default is `true`.
 
 3. **Run the tool**:
+
+   At least python 3.8+ required to run
    ```bash
     python main.py
     ```
