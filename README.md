@@ -15,22 +15,14 @@ Profile path can be found in Firefox by going to `about:profiles` and looking fo
    git clone
    cd firefox-bookmark-importer
    ```
-2. **Install dependencies**:
-    It is recommended to use virtual environments
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
-    ```bash
-    pip install -r requirements.txt
-    ```
-3. **Configure the tool**:
+
+2. **Configure the tool**:
    - Open `config` and set the `profile_path` to your Firefox profile path.
    - Set the `bookmarks_url` to the URL of the HTML file containing your online bookmarks.
    - Set `root_folder` to root bookmark folder where you want to import the bookmarks. (options can be `toolbar`, `menu`, `unfiled`, or `mobile`). Default is `toolbar`.
    - Set `remove_if_duplicate` to `true` if you want to remove existing bookmarks with same name in the root folder before importing. Default is `true`.
 
-4. **Run the tool**:
+3. **Run the tool**:
    ```bash
     python main.py
     ```
