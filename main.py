@@ -1,3 +1,4 @@
+import argparse
 import configparser
 import os
 from shutil import copy2
@@ -17,9 +18,9 @@ from utils.places import get_host_and_port, get_prefix
 from utils.triggers import CREATE_BOOKMARKS_FOREIGNCOUNT_AFTERINSERT_TRIGGER, CREATE_PLACES_AFTERINSERT_TRIGGER
 
 
-def main():
+def main(args: argparse.Namespace):
     config = configparser.ConfigParser()
-    config.read("config")
+    config.read(args.config)
 
     profile_path = config.get("path", "firefox_profile")
     bookmarks_url = config.get("path", "bookmarks_url")
@@ -35,7 +36,7 @@ def main():
         print(f"Database file not found at {db_path}. Please check your configuration.")
         exit(1)
 
-    if os.path.exists(os.path.join(profile_path, "parent.lock")):
+    if os.path.exists(os.path.join(profile_path, "parent.lock")) and not args.yes:
         print("[WARNING] A parent.lock file exists in the profile directory. Proceeding will cause potential data loss.")
         pick = input("Do you want to continue? (yes/no) [no]: ").strip().lower()
         if pick not in ["yes", "y"]:
@@ -111,4 +112,12 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    arg_parser = argparse.ArgumentParser(description="Import bookmarks from an HTML file into a Firefox profile.")
+    arg_parser.add_argument(
+        "-y", "--yes", action="store_true", help="Automatically confirm the presence of parent.lock file without prompting."
+    ) 
+    arg_parser.add_argument(
+        "-c", "--config", type=str, default="config", help="Path to the configuration file (default: 'config')."
+    )
+    args = arg_parser.parse_args()
+    main(args)
