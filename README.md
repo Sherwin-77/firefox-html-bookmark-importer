@@ -29,6 +29,16 @@ Profile path can be found in Firefox by going to `about:profiles` and looking fo
     python main.py
     ```
 
+## Features
+This program is compatible with scheduled tasks (cron job / task scheduler) by supplying the `-y` flag to the command line, which will run the import without prompting for confirmation.
+   ```bash
+   python main.py -y
+   ```
+Additionally, you can specify the `--config` option to use a different configuration file.
+   ```bash
+   python main.py -y --config /path/to/your/config
+   ```
+
 ## Disclaimer
 
 **This project is intended for personal use only.**
