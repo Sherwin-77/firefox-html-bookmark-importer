@@ -172,6 +172,12 @@ def remove_tree_if_exists(db: Cursor, tree: BookmarkTree, root_id: int):
 
     if guids:
         remove_folder_contents(db, guids)
+        db.execute(
+            "DELETE FROM moz_bookmarks WHERE guid IN ({})".format(
+                ', '.join(['?'] * len(guids))
+            ),
+            guids,
+        )
 
 
 def insert_tree(
